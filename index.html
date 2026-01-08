@@ -83,7 +83,8 @@
 
         var width = canvas.width();
         var height = canvas.height();        
-      canvas.attr("width", window.innerWidth);
+   canvas.css({"width": "100vw", "height": "100vh"});
+canvas.attr("width", window.innerWidth);
 canvas.attr("height", window.innerHeight);
         var opts = {
             seed: {
