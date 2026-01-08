@@ -22,9 +22,26 @@
     </script>
 <style>
 @media (max-width: 600px) {
-    #main { width: 100% !important; min-width: 100% !important; padding: 0; overflow: hidden; }
-    canvas { width: 100% !important; height: auto !important; }
-    #code { position: relative !important; margin-top: 10px; width: 100% !important; text-align: center; left: 0 !important; top: 0 !important; font-size: 14px !important; }
+    #main {
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden; /* لمنع ظهور شريط التمرير */
+        display: flex;
+        flex-direction: column;
+    }
+    canvas {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 70vh; /* تحديد ارتفاع الرسم لترك مساحة للنص */
+    }
+    #code {
+        position: absolute !important;
+        top: 50px !important; /* رفع رسالة الهدايا للأعلى قليلاً */
+        width: 100% !important;
+        text-align: center;
+        left: 0 !important;
+        font-size: 14px !important;
+    }
 }
 </style>
 </head>
@@ -92,11 +109,11 @@
             ],
             bloom: {
                 num: 700,
-                width: 1080,
-                height: 650,
+                width: 600,
+                height: 600,
             },
             footer: {
-                width: 1200,
+                width: 700,
                 height: 5,
                 speed: 10,
             }
@@ -171,23 +188,26 @@
         }));
         
 var textAnimate = eval(Jscex.compile("async", function () {
-            // تشغيل كتابة رسالة عيد الميلاد
+            // تشغيل كتابة الرسالة الأصلية
             $("#code").show().typewriter();
             
-            // انتظار لمدة ثانيتين ثم إظهار الأرقام في أسفل الشاشة
-            $await(Jscex.Async.sleep(2000)); 
-            $("#main").append(
-                <div id="extra-stats" style="text-align: center; color: #ff5e87; margin-top: 40px; opacity: 0; transition: opacity 3s; width: 100%; padding-bottom: 50px;">
-                    <p style="font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 10px; font-family: sans-serif;">THE WORLD JUST GOT LUCKIER SINCE</p>
-                    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; font-weight: bold; font-size: 1.1rem; font-family: sans-serif;">
+            // انتظار 3 ثوانٍ ثم إظهار الأرقام فوق الخط الأبيض
+            $await(Jscex.Async.sleep(3000)); 
+            
+            // نستخدم prepend بدلاً من append لضمان ظهوره في طبقة علوية
+            $("#wrap").append(
+                <div id="extra-info" style="position: absolute; bottom: 80px; left: 0; width: 100%; text-align: center; color: #ff5e87; opacity: 0; transition: opacity 3s; z-index: 999; font-family: sans-serif;">
+                    <p style="font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(255,255,255,0.5);">THE WORLD JUST GOT LUCKIER SINCE</p>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; font-weight: bold; font-size: 0.9rem;">
                         <span>19 Years</span> | <span>228 Months</span> | <span>6940 Days</span> | <span>166560 Hours</span>
                     </div>
                 </div>
             );
-            // جعل النص يظهر بتأثير التلاشي (Fade in)
+            
             setTimeout(function() { 
-                var el = document.getElementById("extra-stats");
-                if(el) el.style.opacity = "1"; 
+                if(document.getElementById("extra-info")) {
+                    document.getElementById("extra-info").style.opacity = "1"; 
+                }
             }, 500);
         }));
 	    
