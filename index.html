@@ -26,17 +26,19 @@
     #main {
         display: none !important; /* إخفاء المحتوى تماماً */
     }
-    body::after {
-        content: "Please open this link from a Laptop or Desktop for the best experience. ✨";
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        color: white;
-        text-align: center;
-        padding: 20px;
-        font-family: sans-serif;
-    }
+ body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* لمنع ظهور أشرطة التمرير الجانبية */
+    background-color: #000;
+}
+
+#main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* تنسيق اللابتوب الأصلي */
@@ -108,17 +110,16 @@
                     ]]
                 ]] 
             ],
-            bloom: {
-                num: 700,
-                width: 1080,
-                height: 650,
-            },
-            footer: {
-                width: 1200,
-                height: 5,
-                speed: 10,
-            }
-        }
+         bloom: {
+    num: 700,
+    width: window.innerWidth,  // السطر 110: يأخذ عرض الشاشة بالكامل
+    height: window.innerHeight, // السطر 111: يأخذ ارتفاع الشاشة بالكامل
+},
+footer: {
+    width: window.innerWidth + 200, // السطر 114: يضمن امتداد الخط السفلي
+    height: 5,
+    speed: 10,
+}
 
         var tree = new Tree(canvas[0], width, height, opts);
         var seed = tree.seed;
@@ -189,19 +190,21 @@
         }));
         
 var textAnimate = eval(Jscex.compile("async", function () {
-            // إظهار الرسالة الجانبية
+            // إظهار رسالة عيد الميلاد الجانبية
             $("#code").show().typewriter();
             
-            // ظهور الإحصائيات فوق الخط الأبيض
-            $await(Jscex.Async.sleep(2000));
+            // انتظار 3 ثوانٍ ثم إظهار التواريخ فوق الخط الأبيض
+            $await(Jscex.Async.sleep(3000)); 
+            
             $("#wrap").append(
-                <div id="laptop-info" style="position: absolute; bottom: 60px; left: 0; width: 100%; text-align: center; color: white; z-index: 100;">
-                    <h3 style="letter-spacing: 3px; font-size: 1.2rem; margin-bottom: 10px;">THE WORLD JUST GOT LUCKIER SINCE</h3>
-                    <div style="display: flex; justify-content: center; gap: 20px; font-weight: bold; font-size: 1.4rem;">
-                        <span>19 Years</span> <span>228 Months</span> <span>6940 Days</span> <span>166560 Hours</span>
+                <div id="laptop-stats" style="position: absolute; bottom: 80px; left: 0; width: 100%; text-align: center; color: white; z-index: 1000; font-family: sans-serif;">
+                    <p style="letter-spacing: 3px; font-size: 1.1rem; margin-bottom: 10px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">THE WORLD JUST GOT LUCKIER SINCE</p>
+                    <div style="display: flex; justify-content: center; gap: 30px; font-weight: bold; font-size: 1.3rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">
+                        <span>19 Years</span> | <span>228 Months</span> | <span>6940 Days</span> | <span>166560 Hours</span>
                     </div>
                 </div>
             );
+            $("#laptop-stats").hide().fadeIn(3000); // ظهور تدريجي ناعم
         }));
         var runAsync = eval(Jscex.compile("async", function () {
             $await(seedAnimate());
