@@ -34,13 +34,18 @@
 }
 
 #main {
-    width: 100vw;
-    height: 100vh;
+    width: 100vw;  /* عرض الشاشة الكامل */
+    height: 100vh; /* ارتفاع الشاشة الكامل */
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #000;
 }
-
+canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
 /* تنسيق اللابتوب الأصلي */
 #main {
     width: 100%;
@@ -80,12 +85,12 @@
             $("#error").show();
             return false;
         }
-
-        var width = canvas.width();
-        var height = canvas.height();        
-   canvas.css({"width": "100vw", "height": "100vh"});
-canvas.attr("width", window.innerWidth);
-canvas.attr("height", window.innerHeight);
+var canvas = $('#canvas');
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        
+        canvas.attr("width", width);
+        canvas.attr("height", height);
         var opts = {
             seed: {
                 x: width / 2 - 20,
