@@ -2,8 +2,8 @@
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Hager</title>     
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Hager</title>	    
     <link type="text/css" rel="stylesheet" href="./file/default.css">
     <script type="text/javascript" src="./file/jquery.min.js"></script>
     <script type="text/javascript" src="./file/jscex.min.js"></script>
@@ -21,89 +21,171 @@
         }
     </script>
 <style>
-/* إصلاح التنسيق ليعمل على اللابتوب */
-body {
+#main {
+    width: 100%;
+    height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: hidden; 
-    background-color: #ffe; /* الخلفية فاتحة لتناسب الشجرة */
-}
-
-#main {
-    width: 100vw;  
-    height: 100vh; 
-    position: relative;
-}
-
-canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
+    overflow: hidden;
 }
 
 #wrap {
-    position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    max-width: 90%;
+    max-height: 70vh;
+    width: auto;
+    height: auto;
+}
+
+#text {
+    width: 100%;
+    text-align: center;
+}
+
+#code {
+    width: 100%;
+    padding: 20px;
+}
+
+#clock-box {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+@media (min-width: 1366px) {
+    canvas {
+        width: 1100px;
+        height: 680px;
+        max-width: none;
+        max-height: none;
+    }
+}
+
+@media (max-width: 1365px) {
+    canvas {
+        max-width: 95%;
+        max-height: 65vh;
+    }
+    
+    #code {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    #main {
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    canvas {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 70vh;
+    }
+    #code {
+        position: absolute !important;
+        top: 50px !important;
+        width: 100% !important;
+        text-align: center;
+        left: 0 !important;
+        font-size: 14px !important;
+    }
 }
 </style>
 </head>
 <body onclick="playAudio()">
     <audio id="myAudio" src="aud.mp3" preload="auto" loop></audio>
     <div id="main">
-        <div id="error">Browser not supported.</div>
+        <div id="error"><a href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a> (<a href="http://firefox.com.cn/download/">Firefox</a>)</div>
+        <audio autoplay="autoplay" height="100" width="100" id="myAudio">
+            <source src="aud.mp3" type="audio/mp3" />
+            <embed height="100" width="100" src="aud.mp3" />
+        </audio>
         <div id="wrap">
             <div id="text">
                 <div id="code">
                     <span class="say">You deserve all the happiness in the world</span><br>
-                    <span class="say">Happy Birthday🎉 </span><br>
+                    <span class="say">Happy BirthdayðŸŽ‰ </span><br>
                     <span class="say">HAGER </span><br>
                 </div>
             </div>
             <div id="clock-box">
-                <span id="clock"></span>
+                <span id="clock">577 days 0 hours 0 minutes 0 seconds</span> <!-- Change to "6940 days..." if needed -->
             </div>
-            <canvas id="canvas"></canvas>
+            <canvas id="canvas" width="1100" height="680"></canvas>
         </div>
+</div>
     </div>
 
     <script>
     (function() {
         var canvas = $('#canvas');
+		
         if (!canvas[0].getContext) {
             $("#error").show();
             return false;
         }
 
-        var width = window.innerWidth;
-        var height = window.innerHeight;
+        var width = canvas.width();
+        var height = canvas.height();        
         canvas.attr("width", width);
         canvas.attr("height", height);
 
         var opts = {
-            seed: { x: width / 2 - 20, color: "rgb(190, 26, 37)", scale: 2 },
+            seed: {
+                x: width / 2 - 20,
+                color: "rgb(190, 26, 37)",
+                scale: 2
+            },
             branch: [
                 [535, 680, 570, 250, 500, 200, 30, 100, [
-                    [540, 500, 455, 417, 340, 400, 13, 100, [[450, 435, 434, 430, 394, 395, 2, 40]]],
-                    [550, 445, 600, 356, 680, 345, 12, 100, [[578, 400, 648, 409, 661, 426, 3, 80]]],
+                    [540, 500, 455, 417, 340, 400, 13, 100, [
+                        [450, 435, 434, 430, 394, 395, 2, 40]
+                    ]],
+                    [550, 445, 600, 356, 680, 345, 12, 100, [
+                        [578, 400, 648, 409, 661, 426, 3, 80]
+                    ]],
                     [539, 281, 537, 248, 534, 217, 3, 40],
                     [546, 397, 413, 247, 328, 244, 9, 80, [
                         [427, 286, 383, 253, 371, 205, 2, 40],
                         [498, 345, 435, 315, 395, 330, 4, 60]
                     ]],
-                    [546, 357, 608, 252, 678, 221, 6, 100, [[590, 293, 646, 277, 648, 271, 2, 80]]]
+                    [546, 357, 608, 252, 678, 221, 6, 100, [
+                        [590, 293, 646, 277, 648, 271, 2, 80]
+                    ]]
                 ]] 
             ],
-            bloom: { num: 700, width: width, height: height },
-            footer: { width: width + 200, height: 5, speed: 10 }
-        };
+            bloom: {
+                num: 700,
+                width: 600,
+                height: 600,
+            },
+            footer: {
+                width: 700,
+                height: 5,
+                speed: 10,
+            }
+        }
 
         var tree = new Tree(canvas[0], width, height, opts);
         var seed = tree.seed;
         var foot = tree.footer;
         var hold = 1;
 
-        canvas.click(function(e) {playAudio();
+        canvas.click(function(e) {
+            playAudio();
             var offset = canvas.offset(), x, y;
             x = e.pageX - offset.left;
             y = e.pageY - offset.top;
@@ -122,44 +204,73 @@ canvas {
 
         var seedAnimate = eval(Jscex.compile("async", function () {
             seed.draw();
-            while (hold) { $await(Jscex.Async.sleep(10)); }
-            while (seed.canScale()) { seed.scale(0.95); $await(Jscex.Async.sleep(10)); }
-            while (seed.canMove()) { seed.move(0, 2); foot.draw(); $await(Jscex.Async.sleep(10)); }
+            while (hold) {
+                $await(Jscex.Async.sleep(10));
+            }
+            while (seed.canScale()) {
+                seed.scale(0.95);
+                $await(Jscex.Async.sleep(10));
+            }
+            while (seed.canMove()) {
+                seed.move(0, 2);
+                foot.draw();
+                $await(Jscex.Async.sleep(10));
+            }
         }));
 
         var growAnimate = eval(Jscex.compile("async", function () {
-            do { tree.grow(); $await(Jscex.Async.sleep(10)); } while (tree.canGrow());
+            do {
+                tree.grow();
+                $await(Jscex.Async.sleep(10));
+            } while (tree.canGrow());
         }));
 
         var flowAnimate = eval(Jscex.compile("async", function () {
-            do { tree.flower(2); $await(Jscex.Async.sleep(10)); } while (tree.canFlower());
+            do {
+                tree.flower(2);
+                $await(Jscex.Async.sleep(10));
+            } while (tree.canFlower());
         }));
 
         var moveAnimate = eval(Jscex.compile("async", function () {
             tree.snapshot("p1", 240, 0, 610, 680);
-            while (tree.move("p1", 500, 0)) { foot.draw(); $await(Jscex.Async.sleep(10)); }
+            while (tree.move("p1", 500, 0)) {
+                foot.draw();
+                $await(Jscex.Async.sleep(10));
+            }
             foot.draw();
             tree.snapshot("p2", 500, 0, 610, 680);
+
             canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+            canvas.css("background", "#ffe");
             $await(Jscex.Async.sleep(300));
             canvas.css("background", "none");
         }));
         
-        var textAnimate = eval(Jscex.compile("async", function () {
+var textAnimate = eval(Jscex.compile("async", function () {
+            // Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø±Ø³Ø§Ù„Ø© Ø§Ù„Ø£ØµÙ„ÙŠØ© (Happy Birthday)
             $("#code").show().typewriter();
+            
+            // Ø§Ù†ØªØ¸Ø± 3 Ø«ÙˆØ§Ù†Ù Ø«Ù… Ø£Ø¶Ù Ø§Ù„ØªÙˆØ§Ø±ÙŠØ® ÙÙŠ Ø§Ù„Ø£Ø³ÙÙ„
             $await(Jscex.Async.sleep(3000)); 
             
-            // إضافة النصوص أسفل الشاشة
-            var stats = '<div id="laptop-stats" style="position: absolute; bottom: 80px; left: 0; width: 100%; text-align: center; color: #333; z-index: 1000; font-family: sans-serif;">' +
-                        '<p style="letter-spacing: 3px; font-size: 1.1rem; margin-bottom: 10px;">THE WORLD JUST GOT LUCKIER SINCE</p>' +
-                        '<div style="display: flex; justify-content: center; gap: 30px; font-weight: bold; font-size: 1.3rem;">' +
+            // Ø¥Ø¶Ø§ÙØ© Ø§Ù„ÙƒÙ„Ø§Ù… ÙÙŠ Ù…Ø³Ø§Ø­Ø© ØªØ¶Ù…Ù† Ø¸Ù‡ÙˆØ±Ù‡ Ø¹Ù„Ù‰ Ø§Ù„Ù‡Ø§ØªÙ
+            $("#main").append(
+                '<div id="extra-info" style="text-align: center; color: #ff5e87; margin-top: 20px; opacity: 0; transition: opacity 3s; width: 100%; padding-bottom: 30px;">' +
+                    '<p style="font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 5px; font-weight: bold;">THE WORLD JUST GOT LUCKIER SINCE</p>' +
+                    '<div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; font-weight: bold; font-size: 0.9rem;">' +
                         '<span>19 Years</span> | <span>228 Months</span> | <span>6940 Days</span> | <span>166560 Hours</span>' +
-                        '</div></div>';
+                    '</div>' +
+                '</div>'
+            );
             
-            $("#wrap").append(stats);
-            $("#laptop-stats").hide().fadeIn(3000);
+            // ØªÙØ¹ÙŠÙ„ ØªØ£Ø«ÙŠØ± Ø§Ù„Ø¸Ù‡ÙˆØ± Ø§Ù„Ù†Ø§Ø¹Ù…
+            setTimeout(function() { 
+                if(document.getElementById("extra-info")) {
+                    document.getElementById("extra-info").style.opacity = "1"; 
+                }
+            }, 500);
         }));
-
         var runAsync = eval(Jscex.compile("async", function () {
             $await(seedAnimate());
             $await(growAnimate());
