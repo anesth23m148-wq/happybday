@@ -21,27 +21,28 @@
         }
     </script>
 <style>
-@media (max-width: 600px) {
+/* هذا الكود يخفي كل شيء إذا كانت الشاشة أصغر من 800 بكسل (مثل الهواتف) */
+@media (max-width: 800px) {
     #main {
-        width: 100% !important;
-        height: 100% !important;
-        overflow: hidden; /* لمنع ظهور شريط التمرير */
+        display: none !important; /* إخفاء المحتوى تماماً */
+    }
+    body::after {
+        content: "Please open this link from a Laptop or Desktop for the best experience. ✨";
         display: flex;
-        flex-direction: column;
-    }
-    canvas {
-        width: 100% !important;
-        height: auto !important;
-        max-height: 70vh; /* تحديد ارتفاع الرسم لترك مساحة للنص */
-    }
-    #code {
-        position: absolute !important;
-        top: 50px !important; /* رفع رسالة الهدايا للأعلى قليلاً */
-        width: 100% !important;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
         text-align: center;
-        left: 0 !important;
-        font-size: 14px !important;
+        padding: 20px;
+        font-family: sans-serif;
     }
+}
+
+/* تنسيق اللابتوب الأصلي */
+#main {
+    width: 100%;
+}
 }
 </style>
 </head>
@@ -109,11 +110,11 @@
             ],
             bloom: {
                 num: 700,
-                width: 600,
-                height: 600,
+                width: 1080,
+                height: 650,
             },
             footer: {
-                width: 700,
+                width: 1200,
                 height: 5,
                 speed: 10,
             }
@@ -188,28 +189,19 @@
         }));
         
 var textAnimate = eval(Jscex.compile("async", function () {
-            // إظهار الرسالة الأصلية (Happy Birthday)
+            // إظهار الرسالة الجانبية
             $("#code").show().typewriter();
             
-            // انتظر 3 ثوانٍ ثم أضف التواريخ في الأسفل
-            $await(Jscex.Async.sleep(3000)); 
-            
-            // إضافة الكلام في مساحة تضمن ظهوره على الهاتف
-            $("#main").append(
-                <div id="extra-info" style="text-align: center; color: #ff5e87; margin-top: 20px; opacity: 0; transition: opacity 3s; width: 100%; padding-bottom: 30px;">
-                    <p style="font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 5px; font-weight: bold;">THE WORLD JUST GOT LUCKIER SINCE</p>
-                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; font-weight: bold; font-size: 0.9rem;">
-                        <span>19 Years</span> | <span>228 Months</span> | <span>6940 Days</span> | <span>166560 Hours</span>
+            // ظهور الإحصائيات فوق الخط الأبيض
+            $await(Jscex.Async.sleep(2000));
+            $("#wrap").append(
+                <div id="laptop-info" style="position: absolute; bottom: 60px; left: 0; width: 100%; text-align: center; color: white; z-index: 100;">
+                    <h3 style="letter-spacing: 3px; font-size: 1.2rem; margin-bottom: 10px;">THE WORLD JUST GOT LUCKIER SINCE</h3>
+                    <div style="display: flex; justify-content: center; gap: 20px; font-weight: bold; font-size: 1.4rem;">
+                        <span>19 Years</span> <span>228 Months</span> <span>6940 Days</span> <span>166560 Hours</span>
                     </div>
                 </div>
             );
-            
-            // تفعيل تأثير الظهور الناعم
-            setTimeout(function() { 
-                if(document.getElementById("extra-info")) {
-                    document.getElementById("extra-info").style.opacity = "1"; 
-                }
-            }, 500);
         }));
         var runAsync = eval(Jscex.compile("async", function () {
             $await(seedAnimate());
