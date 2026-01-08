@@ -22,15 +22,9 @@
     </script>
 <style>
 @media (max-width: 600px) {
-  #main {
-    width: 100% !important;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  img {
-    max-width: 100%;
-    height: auto;
-  }
+    #main { width: 100% !important; min-width: 100% !important; padding: 0; overflow: hidden; }
+    canvas { width: 100% !important; height: auto !important; }
+    #code { position: relative !important; margin-top: 10px; width: 100% !important; text-align: center; left: 0 !important; top: 0 !important; font-size: 14px !important; }
 }
 </style>
 </head>
@@ -55,15 +49,6 @@
             </div>
             <canvas id="canvas" width="1100" height="680"></canvas>
         </div>
-				<div style="text-align: center; color: white; font-family: sans-serif; margin: 20px 0; padding: 10px;">
-    <h3 style="letter-spacing: 2px; font-size: 1.2rem;">THE WORLD JUST GOT LUCKIER SINCE</h3>
-    
-    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
-        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">19</span> Years</div>
-        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">228</span> Months</div>
-        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">6940</span> Days</div>
-        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">166560</span> Hours</div>
-    </div>
 </div>
     </div>
 
@@ -184,9 +169,26 @@
             $await(Jscex.Async.sleep(300));
             canvas.css("background", "none");
         }));
-
-        var textAnimate = eval(Jscex.compile("async", function () {
+        
+var textAnimate = eval(Jscex.compile("async", function () {
+            // تشغيل كتابة رسالة عيد الميلاد
             $("#code").show().typewriter();
+            
+            // انتظار لمدة ثانيتين ثم إظهار الأرقام في أسفل الشاشة
+            $await(Jscex.Async.sleep(2000)); 
+            $("#main").append(
+                <div id="extra-stats" style="text-align: center; color: #ff5e87; margin-top: 40px; opacity: 0; transition: opacity 3s; width: 100%; padding-bottom: 50px;">
+                    <p style="font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 10px; font-family: sans-serif;">THE WORLD JUST GOT LUCKIER SINCE</p>
+                    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; font-weight: bold; font-size: 1.1rem; font-family: sans-serif;">
+                        <span>19 Years</span> | <span>228 Months</span> | <span>6940 Days</span> | <span>166560 Hours</span>
+                    </div>
+                </div>
+            );
+            // جعل النص يظهر بتأثير التلاشي (Fade in)
+            setTimeout(function() { 
+                var el = document.getElementById("extra-stats");
+                if(el) el.style.opacity = "1"; 
+            }, 500);
         }));
 	    
         var runAsync = eval(Jscex.compile("async", function () {
