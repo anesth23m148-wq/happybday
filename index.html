@@ -67,7 +67,7 @@
             <div id="clock-box">
                 <span id="clock">577 days 0 hours 0 minutes 0 seconds</span> <!-- Change to "6940 days..." if needed -->
             </div>
-            <canvas id="canvas" width="1100" height="680"></canvas>
+       <canvas id="canvas"></canvas>
         </div>
 </div>
     </div>
@@ -83,9 +83,8 @@
 
         var width = canvas.width();
         var height = canvas.height();        
-        canvas.attr("width", width);
-        canvas.attr("height", height);
-
+      canvas.attr("width", window.innerWidth);
+canvas.attr("height", window.innerHeight);
         var opts = {
             seed: {
                 x: width / 2 - 20,
@@ -121,10 +120,7 @@ footer: {
     speed: 10,
 }
 
-        var tree = new Tree(canvas[0], width, height, opts);
-        var seed = tree.seed;
-        var foot = tree.footer;
-        var hold = 1;
+       var tree = new Tree(canvas[0], window.innerWidth, window.innerHeight, opts);
 
         canvas.click(function(e) {
             playAudio();
