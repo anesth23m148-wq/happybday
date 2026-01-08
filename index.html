@@ -34,18 +34,9 @@
 }
 </style>
 </head>
-<body>
+<body onclick="playAudio()">
+    <audio id="myAudio" src="aud.mp3" preload="auto" loop></audio>
     <div id="main">
-		<div style="text-align: center; color: white; font-family: sans-serif; margin: 20px 0; padding: 10px;">
-    <h3 style="letter-spacing: 2px; font-size: 1.2rem;">THE WORLD JUST GOT LUCKIER SINCE</h3>
-    
-    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
-        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">19</span> Years</div>
-        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">228</span> Months</div>
-        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">6940</span> Days</div>
-        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">166560</span> Hours</div>
-    </div>
-</div>
         <div id="error"><a href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a> (<a href="http://firefox.com.cn/download/">Firefox</a>)</div>
         <audio autoplay="autoplay" height="100" width="100" id="myAudio">
             <source src="aud.mp3" type="audio/mp3" />
@@ -64,6 +55,16 @@
             </div>
             <canvas id="canvas" width="1100" height="680"></canvas>
         </div>
+				<div style="text-align: center; color: white; font-family: sans-serif; margin: 20px 0; padding: 10px;">
+    <h3 style="letter-spacing: 2px; font-size: 1.2rem;">THE WORLD JUST GOT LUCKIER SINCE</h3>
+    
+    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">19</span> Years</div>
+        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">228</span> Months</div>
+        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">6940</span> Days</div>
+        <div><span style="display: block; font-size: 1.5rem; font-weight: bold;">166560</span> Hours</div>
+    </div>
+</div>
     </div>
 
     <script>
