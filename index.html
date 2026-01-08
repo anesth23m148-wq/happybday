@@ -188,29 +188,29 @@
         }));
         
 var textAnimate = eval(Jscex.compile("async", function () {
-            // تشغيل كتابة الرسالة الأصلية
+            // إظهار الرسالة الأصلية (Happy Birthday)
             $("#code").show().typewriter();
             
-            // انتظار 3 ثوانٍ ثم إظهار الأرقام فوق الخط الأبيض
+            // انتظر 3 ثوانٍ ثم أضف التواريخ في الأسفل
             $await(Jscex.Async.sleep(3000)); 
             
-            // نستخدم prepend بدلاً من append لضمان ظهوره في طبقة علوية
-            $("#wrap").append(
-                <div id="extra-info" style="position: absolute; bottom: 80px; left: 0; width: 100%; text-align: center; color: #ff5e87; opacity: 0; transition: opacity 3s; z-index: 999; font-family: sans-serif;">
-                    <p style="font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(255,255,255,0.5);">THE WORLD JUST GOT LUCKIER SINCE</p>
+            // إضافة الكلام في مساحة تضمن ظهوره على الهاتف
+            $("#main").append(
+                <div id="extra-info" style="text-align: center; color: #ff5e87; margin-top: 20px; opacity: 0; transition: opacity 3s; width: 100%; padding-bottom: 30px;">
+                    <p style="font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 5px; font-weight: bold;">THE WORLD JUST GOT LUCKIER SINCE</p>
                     <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; font-weight: bold; font-size: 0.9rem;">
                         <span>19 Years</span> | <span>228 Months</span> | <span>6940 Days</span> | <span>166560 Hours</span>
                     </div>
                 </div>
             );
             
+            // تفعيل تأثير الظهور الناعم
             setTimeout(function() { 
                 if(document.getElementById("extra-info")) {
                     document.getElementById("extra-info").style.opacity = "1"; 
                 }
             }, 500);
         }));
-	    
         var runAsync = eval(Jscex.compile("async", function () {
             $await(seedAnimate());
             $await(growAnimate());
