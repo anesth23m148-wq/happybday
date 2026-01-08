@@ -2,8 +2,8 @@
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Hager</title>	    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Hager</title>     
     <link type="text/css" rel="stylesheet" href="./file/default.css">
     <script type="text/javascript" src="./file/jquery.min.js"></script>
     <script type="text/javascript" src="./file/jscex.min.js"></script>
@@ -17,50 +17,56 @@
     <script>
         function playAudio() {
             var audio = document.getElementById("myAudio");
-            audio.play();
+            if (audio.paused) audio.play();
         }
     </script>
-<style>
-/* هذا الكود يخفي كل شيء إذا كانت الشاشة أصغر من 800 بكسل (مثل الهواتف) */
-@media (max-width: 800px) {
-    #main {
-        display: none !important; /* إخفاء المحتوى تماماً */
-    }
- body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* لمنع ظهور أشرطة التمرير الجانبية */
-    background-color: #000;
-}
-
-#main {
-    width: 100vw;  /* عرض الشاشة الكامل */
-    height: 100vh; /* ارتفاع الشاشة الكامل */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000;
-}
-canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-}
-/* تنسيق اللابتوب الأصلي */
-#main {
-    width: 100%;
-}
-}
-</style>
+    <style>
+        /* تعديل لجعل الموقع يعمل على اللابتوب والهاتف */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+            background-color: #ffe;
+        }
+        #main {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        #wrap {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+        }
+        canvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        #text {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            z-index: 1001;
+        }
+        /* ضبط حجم النصوص للهواتف */
+        @media (max-width: 800px) {
+            #text {
+                left: 20px;
+                top: 20px;
+                font-size: 14px;
+            }
+            #laptop-stats {
+                font-size: 0.8rem !important;
+            }
+        }
+    </style>
 </head>
 <body onclick="playAudio()">
     <audio id="myAudio" src="aud.mp3" preload="auto" loop></audio>
     <div id="main">
-        <div id="error"><a href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a> (<a href="http://firefox.com.cn/download/">Firefox</a>)</div>
-        <audio autoplay="autoplay" height="100" width="100" id="myAudio">
-            <source src="aud.mp3" type="audio/mp3" />
-            <embed height="100" width="100" src="aud.mp3" />
-        </audio>
+        <div id="error">الرجاء استخدام متصفح حديث مثل Chrome أو Firefox</div>
         <div id="wrap">
             <div id="text">
                 <div id="code">
@@ -69,28 +75,25 @@ canvas {
                     <span class="say">HAGER </span><br>
                 </div>
             </div>
-            <div id="clock-box">
-                <span id="clock">577 days 0 hours 0 minutes 0 seconds</span> <!-- Change to "6940 days..." if needed -->
+            <div id="clock-box" style="display:none;"> <span id="clock"></span>
             </div>
-       <canvas id="canvas"></canvas>
+            <canvas id="canvas"></canvas>
         </div>
-</div>
     </div>
 
     <script>
     (function() {
         var canvas = $('#canvas');
-		
         if (!canvas[0].getContext) {
             $("#error").show();
             return false;
         }
-var canvas = $('#canvas');
-        var width = window.innerWidth;
-        var height = window.innerHeight;
-        
+
+        var width = $(window).width();
+        var height = $(window).height();
         canvas.attr("width", width);
         canvas.attr("height", height);
+
         var opts = {
             seed: {
                 x: width / 2 - 20,
@@ -102,8 +105,7 @@ var canvas = $('#canvas');
                     [540, 500, 455, 417, 340, 400, 13, 100, [
                         [450, 435, 434, 430, 394, 395, 2, 40]
                     ]],
-                    [550, 445, 600, 356, 680, 345, 12, 100, [
-                        [578, 400, 648, 409, 661, 426, 3, 80]
+                    [550, 445, 600, 356, 680, 345, 12, 100, [[578, 400, 648, 409, 661, 426, 3, 80]
                     ]],
                     [539, 281, 537, 248, 534, 217, 3, 40],
                     [546, 397, 413, 247, 328, 244, 9, 80, [
@@ -115,21 +117,24 @@ var canvas = $('#canvas');
                     ]]
                 ]] 
             ],
-         bloom: {
-    num: 700,
-    width: window.innerWidth,  // السطر 110: يأخذ عرض الشاشة بالكامل
-    height: window.innerHeight, // السطر 111: يأخذ ارتفاع الشاشة بالكامل
-},
-footer: {
-    width: window.innerWidth + 200, // السطر 114: يضمن امتداد الخط السفلي
-    height: 5,
-    speed: 10,
-}
+            bloom: {
+                num: 700,
+                width: width,
+                height: height,
+            },
+            footer: {
+                width: width,
+                height: 5,
+                speed: 10,
+            }
+        };
 
-       var tree = new Tree(canvas[0], window.innerWidth, window.innerHeight, opts);
+        var tree = new Tree(canvas[0], width, height, opts);
+        var seed = tree.seed;
+        var foot = tree.footer;
+        var hold = 1;
 
         canvas.click(function(e) {
-            playAudio();
             var offset = canvas.offset(), x, y;
             x = e.pageX - offset.left;
             y = e.pageY - offset.top;
@@ -148,66 +153,44 @@ footer: {
 
         var seedAnimate = eval(Jscex.compile("async", function () {
             seed.draw();
-            while (hold) {
-                $await(Jscex.Async.sleep(10));
-            }
-            while (seed.canScale()) {
-                seed.scale(0.95);
-                $await(Jscex.Async.sleep(10));
-            }
-            while (seed.canMove()) {
-                seed.move(0, 2);
-                foot.draw();
-                $await(Jscex.Async.sleep(10));
-            }
+            while (hold) { $await(Jscex.Async.sleep(10)); }
+            while (seed.canScale()) { seed.scale(0.95); $await(Jscex.Async.sleep(10)); }
+            while (seed.canMove()) { seed.move(0, 2); foot.draw(); $await(Jscex.Async.sleep(10)); }
         }));
 
         var growAnimate = eval(Jscex.compile("async", function () {
-            do {
-                tree.grow();
-                $await(Jscex.Async.sleep(10));
-            } while (tree.canGrow());
+            do { tree.grow(); $await(Jscex.Async.sleep(10)); } while (tree.canGrow());
         }));
 
         var flowAnimate = eval(Jscex.compile("async", function () {
-            do {
-                tree.flower(2);
-                $await(Jscex.Async.sleep(10));
-            } while (tree.canFlower());
+            do { tree.flower(2); $await(Jscex.Async.sleep(10)); } while (tree.canFlower());
         }));
 
         var moveAnimate = eval(Jscex.compile("async", function () {
             tree.snapshot("p1", 240, 0, 610, 680);
-            while (tree.move("p1", 500, 0)) {
-                foot.draw();
-                $await(Jscex.Async.sleep(10));
-            }
+            while (tree.move("p1", 500, 0)) { foot.draw(); $await(Jscex.Async.sleep(10)); }
             foot.draw();
             tree.snapshot("p2", 500, 0, 610, 680);
-
             canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
-            canvas.css("background", "#ffe");
             $await(Jscex.Async.sleep(300));
             canvas.css("background", "none");
         }));
         
-var textAnimate = eval(Jscex.compile("async", function () {
-            // إظهار رسالة عيد الميلاد الجانبية
+        var textAnimate = eval(Jscex.compile("async", function () {
             $("#code").show().typewriter();
-            
-            // انتظار 3 ثوانٍ ثم إظهار التواريخ فوق الخط الأبيض
             $await(Jscex.Async.sleep(3000)); 
             
-            $("#wrap").append(
-                <div id="laptop-stats" style="position: absolute; bottom: 80px; left: 0; width: 100%; text-align: center; color: white; z-index: 1000; font-family: sans-serif;">
-                    <p style="letter-spacing: 3px; font-size: 1.1rem; margin-bottom: 10px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">THE WORLD JUST GOT LUCKIER SINCE</p>
-                    <div style="display: flex; justify-content: center; gap: 30px; font-weight: bold; font-size: 1.3rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">
-                        <span>19 Years</span> | <span>228 Months</span> | <span>6940 Days</span> | <span>166560 Hours</span>
-                    </div>
-                </div>
-            );
-            $("#laptop-stats").hide().fadeIn(3000); // ظهور تدريجي ناعم
+            // إضافة الكلام (الأيام والسنوات) ليظهر فوق الخط الأبيض بعد اكتمال الشجرة
+            var statsHtml = '<div id="laptop-stats" style="position: absolute; bottom: 100px; left: 0; width: 100%; text-align: center; color: #333; z-index: 1000; font-family: sans-serif;">' +
+                            '<p style="letter-spacing: 3px; font-size: 1.1rem; margin-bottom: 10px; font-weight: bold;">THE WORLD JUST GOT LUCKIER SINCE</p>' +
+                            '<div style="display: flex; justify-content: center; gap: 20px; font-weight: bold; font-size: 1.2rem;">' +
+                            '<span>19 Years</span> | <span>228 Months</span> | <span>6940 Days</span> | <span>166560 Hours</span>' +
+                            '</div></div>';
+            
+            $("#wrap").append(statsHtml);
+            $("#laptop-stats").hide().fadeIn(3000);
         }));
+
         var runAsync = eval(Jscex.compile("async", function () {
             $await(seedAnimate());
             $await(growAnimate());
